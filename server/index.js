@@ -8,10 +8,10 @@ const bodyParser = require("body-parser");
 //Socket IO
 // var socket = require('socket.io');
 
-
 // routes
 // var indexRouter = require("./routes/index.js");
 // var userRouter = require("./routes/user.js");
+var apiRouter = require('./routes/api.js');
 // middlewares
 // var { decode } = require('./middlewares/jwt.js')
 // require("./config/mongo.js");
@@ -25,9 +25,11 @@ app.set("port", port);
 app.use(cors({ origin: true }));
 app.use(logger("dev"));
 app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.use('/api', apiRouter);
 
 // app.use("/", indexRouter);
 // app.use("/users", userRouter);
@@ -45,7 +47,7 @@ app.use('*', (req, res) => {
 /** Create HTTP server. */
 // const server = http.createServer(app);
 /** Listen on provided port, on all network interfaces. */
-var server = app.listen(port, function() {
+app.listen(port, function() {
   console.log(`Listening finally port:: http://localhost:${port}/`)
 });
 /** Event listener for HTTP server "listening" event. */

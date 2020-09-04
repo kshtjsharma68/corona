@@ -26,9 +26,14 @@ import AuthFooter from "components/Footers/AuthFooter.js";
 
 import routes from "routes.js";
 
+import api from "../lib/api";
+
 class Auth extends React.Component {
   componentDidMount() {
     document.body.classList.add("bg-default");
+    api.get('/login')
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
   }
   componentWillUnmount() {
     document.body.classList.remove("bg-default");
